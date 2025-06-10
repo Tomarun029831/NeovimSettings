@@ -1,4 +1,7 @@
-# 💤 LazyVim
-
-A starter template for [LazyVim](https://github.com/LazyVim/LazyVim).
-Refer to the [documentation](https://lazyvim.github.io/installation) to get started.
+# CLI Fast SetUp  
+winget install --id Microsoft.PowerShell;  
+winget install --id wez.wezterm;  
+winget install --id Git.Git;  
+winget install --id JesseDuffield.lazygit;  
+winget install --id Neovim.Neovim;  
+git clone https://github.com/Tomarun029831/NeovimSettings $env:LOCALAPPDATA\nvim;  
