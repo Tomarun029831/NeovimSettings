@@ -14,7 +14,7 @@ foreach ($terminalSetting in $terminalsSettings)
 {try {winget install --id $terminalSetting -e & Write-Host "$terminalSetting installed."}
 catch{Write-Host "$terminalSetting installation failed: $_"}}
 # Tool Settings // FIXME: "UnZip", "7Zip", "gzip"
-$tools = @("Git.Git","JesseDuffield.lazygit","junegunn.fzf","sharkdp.fd","BurntSushi.ripgrep.MSVC")
+$tools = @("Git.Git","JesseDuffield.lazygit","junegunn.fzf","sharkdp.fd","BurntSushi.ripgrep.MSVC","JernejSimoncic.Wget")
 foreach ($tool in $tools)
 {try {winget install --id $tool -e & Write-Host "$tool installed."}
 catch {Write-Host "$tool installation failed: $_"}}
