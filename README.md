@@ -33,24 +33,9 @@ try {
     if ($currentPath -notlike "*$mingwBin*") {[Environment]::SetEnvironmentVariable("Path", "$currentPath;$mingwBin", [EnvironmentVariableTarget]::User)}
     Write-Host "MinGW installed."
 } catch {Write-Host "MinGW installation failed: $_"}
-# --LuaRocks Installation-- // FIXME: installation failed
-try {
-    $luaUrl = "https://sourceforge.net/projects/luabinaries/files/5.4.6/Windows%20Libraries/Static/lua-5.4.6_Win64_bin.zip/download"
-    $rocksUrl = "https://luarocks.org/releases/luarocks-3.9.2-windows-64.zip"
-    $luaZip = "$env:TEMP\lua.zip"
-    $rocksZip = "$env:TEMP\luarocks.zip"
-    $luaDir = "C:\Lua"
-    $rocksDir = "C:\LuaRocks"
-    Invoke-WebRequest -Uri $luaUrl -OutFile $luaZip -UseBasicParsing
-    Invoke-WebRequest -Uri $rocksUrl -OutFile $rocksZip -UseBasicParsing
-    Expand-Archive -Path $luaZip -DestinationPath $luaDir -Force
-    Expand-Archive -Path $rocksZip -DestinationPath $rocksDir -Force
-    $pathsToAdd = @("$luaDir", "$luaDir\bin", "$rocksDir", "$rocksDir\systree\bin")
-    $currentPath = [Environment]::GetEnvironmentVariable("Path", [EnvironmentVariableTarget]::User)
-    foreach ($path in $pathsToAdd) {if ($currentPath -notlike "*$path*") {$currentPath += ";$path"}}
-    [Environment]::SetEnvironmentVariable("Path", $currentPath, [EnvironmentVariableTarget]::User)
-    Write-Host "Lua and LuaRocks installed."
-} catch {Write-Host "LuaRocks installation failed: $_"}
+# --LuaRocks Installation-- TODO: installation on only cur
+winget install --id Chocolatey.Chocolatey -e
+powershell -Command "Start-Process pwsh -Verb RunAs -ArgumentList '-Command','choco upgrade chocolatey; choco install LuaRocks -y'"
 # --NodeJS Installation-- // FIXME: must wait for installation
 try {winget install --id OpenJS.NodeJS.LTS -e & Write-Host "Node.js installed."}
 catch {Write-Host "Node.js installation failed: $_"}
