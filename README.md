@@ -19,7 +19,7 @@ foreach ($terminalSetting in $terminalsSettings) {
         Write-Host "$terminalSetting installation failed: $_"
     }
 }
-# Tool Settings
+# Tool Settings TODO: unzip, 7zip, gzip
 $tools = @("Git.Git","JesseDuffield.lazygit","junegunn.fzf","sharkdp.fd","BurntSushi.ripgrep.MSVC","JernejSimoncic.Wget")
 foreach ($tool in $tools) {
     try {
