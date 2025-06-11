@@ -33,7 +33,7 @@ try {
     if ($currentPath -notlike "*$mingwBin*") {[Environment]::SetEnvironmentVariable("Path", "$currentPath;$mingwBin", [EnvironmentVariableTarget]::User)}
     Write-Host "MinGW installed."
 } catch {Write-Host "MinGW installation failed: $_"}
-# --LuaRocks Installation-- TODO: installation on only cur
+# --LuaRocks Installation-- TODO: installation on only curl
 winget install --id Chocolatey.Chocolatey -e
 powershell -Command "Start-Process pwsh -Verb RunAs -ArgumentList '-Command','choco upgrade chocolatey; choco install LuaRocks -y'"
 # --NodeJS Installation-- // FIXME: must wait for installation
