@@ -62,7 +62,7 @@ try {
 # Neovim Installation
 try {
     Start-Process -Wait winget -ArgumentList "install --id Neovim.Neovim -e --accept-package-agreements --accept-source-agreements"
-    git clone https://github.com/Tomarun029831/NeovimSettings $env:LOCALAPPDATA\nvim
+    git clone https://github.com/Tomarun029831/NeovimSettings.git $env:LOCALAPPDATA\nvim
     Write-Host "Neovim and config installed."
 } catch {
     Write-Host "Neovim installation failed: $_"
