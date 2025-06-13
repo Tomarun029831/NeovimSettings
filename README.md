@@ -5,7 +5,7 @@ Refer to the [documentation](https://lazyvim.github.io/installation) to get star
 
 # 🚀 CLI Fast SetUp
 
-```powershell
+```pwsh
 # PowerShell Installation
 winget install --id Microsoft.PowerShell -e --accept-package-agreements --accept-source-agreements
 pwsh
@@ -19,6 +19,8 @@ foreach ($terminalSetting in $terminalsSettings) {
         Write-Host "$terminalSetting installation failed: $_"
     }
 }
+git clone https://github.com/Tomarun029831/AlacrittySettings $env:%APPDATA%alacritty
+
 # Tool Settings TODO: unzip, 7zip, gzip
 $tools = @("Git.Git","JesseDuffield.lazygit","junegunn.fzf","sharkdp.fd","BurntSushi.ripgrep.MSVC","JernejSimoncic.Wget")
 foreach ($tool in $tools) {
