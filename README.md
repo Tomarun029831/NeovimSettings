@@ -10,7 +10,7 @@ Refer to the [documentation](https://lazyvim.github.io/installation) to get star
 winget install --id Microsoft.PowerShell -e --accept-package-agreements --accept-source-agreements
 pwsh
 # Terminal Settings
-$terminalsSettings = @("DEVCOM.JetBrainsMonoNerdFont", "wez.wezterm")
+$terminalsSettings = @("DEVCOM.JetBrainsMonoNerdFont", "Alacritty.Alacritty")
 foreach ($terminalSetting in $terminalsSettings) {
     try {
         Start-Process -Wait winget -ArgumentList "install --id $terminalSetting -e --accept-package-agreements --accept-source-agreements"
