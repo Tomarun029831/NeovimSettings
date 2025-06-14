@@ -31,29 +31,9 @@ foreach ($tool in $tools) {
         Write-Host "$tool installation failed: $_"
     }
 }
-# MinGW Installation FIXME: Failed Installation
-try {
-    $zipUrl = "https://github.com/niXman/mingw-builds-binaries/releases/download/15.1.0/i686-15.1.0-release-posix-dwarf-ucrt-rt_v12-rev0.7z"
-    $downloadPath = "C:\mingw64\mingw.7z"
-    $extractTo = "C:\mingw64"
-    if (!(Test-Path $extractTo)) { New-Item -ItemType Directory -Path $extractTo | Out-Null }
-    Invoke-WebRequest -Uri $zipUrl -OutFile $downloadPath -UseBasicParsing
-
-    Start-Process -Wait "C:\Program Files\7-Zip\7z.exe" -ArgumentList "x `"$downloadPath`" -o`"$extractTo`""
-    Remove-Item $downloadPath
-
-    $mingwBin = "$extractTo\bin"
-    $currentPath = [Environment]::GetEnvironmentVariable("Path", [EnvironmentVariableTarget]::User)
-    if ($currentPath -notlike "*$mingwBin*") {
-        [Environment]::SetEnvironmentVariable("Path", "$currentPath;$mingwBin", [EnvironmentVariableTarget]::User)
-    }
-    Write-Host "MinGW installed."
-} catch {
-    Write-Host "MinGW installation failed: $_"
-}
-# Chocolatey And LuaRocks TODO: make Installation only with curl or wget
+# Chocolatey And LuaRocks And mingw TODO: make Installation only without choco
 Start-Process -Wait winget -ArgumentList "install --id Chocolatey.Chocolatey -e --accept-package-agreements --accept-source-agreements"
-Start-Process -Wait powershell -Verb RunAs -ArgumentList '-Command', 'choco upgrade chocolatey; choco install LuaRocks -y'
+Start-Process -Wait powershell -Verb RunAs -ArgumentList '-Command', 'choco upgrade chocolatey; choco install LuaRocks -y; choco install mingw -y'
 # Node.js
 try {
     Start-Process -Wait winget -ArgumentList "install --id OpenJS.NodeJS.LTS -e --accept-package-agreements --accept-source-agreements"
