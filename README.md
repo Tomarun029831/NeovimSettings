@@ -12,26 +12,8 @@ Refer to the [documentation](https://lazyvim.github.io/installation) to get star
 
 # PowerShell
 Start-Process -Wait winget -ArgumentList "install --id Microsoft.PowerShell -e --accept-package-agreements --accept-source-agreements"
-pwsh
 
-# Terminal Emulator, Font
-$terminalPackages = @(
-    "DEVCOM.JetBrainsMonoNerdFont",
-    "Alacritty.Alacritty"
-)
-
-foreach ($pkg in $terminalPackages) {
-    try {
-        Start-Process -Wait winget -ArgumentList "install --id $pkg -e --accept-package-agreements --accept-source-agreements"
-        Write-Host "$pkg installed."
-    } catch {
-        Write-Host "$pkg installation failed: $_"
-    }
-}
-
-# Clone Alacritty Settings
-git clone https://github.com/Tomarun029831/AlacrittySettings "$env:APPDATA\alacritty"
-
+pwsh -NoLogo -NoProfile -Command @'
 # ------------------------
 # DevTools Installation
 # ------------------------
@@ -53,6 +35,24 @@ foreach ($tool in $devTools) {
         Write-Host "$tool installation failed: $_"
     }
 }
+
+# Terminal Emulator, Font
+$terminalPackages = @(
+    "DEVCOM.JetBrainsMonoNerdFont",
+    "Alacritty.Alacritty"
+)
+
+foreach ($pkg in $terminalPackages) {
+    try {
+        Start-Process -Wait winget -ArgumentList "install --id $pkg -e --accept-package-agreements --accept-source-agreements"
+        Write-Host "$pkg installed."
+    } catch {
+        Write-Host "$pkg installation failed: $_"
+    }
+}
+
+# Clone Alacritty Settings
+git clone https://github.com/Tomarun029831/AlacrittySettings "$env:APPDATA\alacritty"
 
 # -----------------------------
 # Chocolatey / LuaRocks / MinGW Installation
@@ -96,5 +96,5 @@ try {
 # ------------
 
 Write-Host "Neovim Fast Setup is finished."
-exit
+'@
 ```
