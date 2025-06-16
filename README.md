@@ -6,95 +6,66 @@ Refer to the [documentation](https://lazyvim.github.io/installation) to get star
 # 🚀 CLI Fast SetUp
 
 ```pwsh
-# ----------------------------
-# PowerShell & Terminal Emulator Setup
-# ----------------------------
-
-# PowerShell
-Start-Process -Wait winget -ArgumentList "install --id Microsoft.PowerShell -e --silent --accept-package-agreements --accept-source-agreements"
+# PowerShell Installation
+Start-Process -Wait winget -ArgumentList `
+  "install --id Microsoft.PowerShell -e --silent --accept-package-agreements --accept-source-agreements"
 
 pwsh -NoLogo -NoProfile -Command @'
-# ------------------------
-# DevTools Installation
-# ------------------------
-
-$devTools = @(
+$allPackages = @(
+    # DevTools
     "Git.Git",
     "JesseDuffield.lazygit",
     "junegunn.fzf",
     "sharkdp.fd",
     "BurntSushi.ripgrep.MSVC",
-    "JernejSimoncic.Wget"
-)
+    "JernejSimoncic.Wget",
 
-foreach ($tool in $devTools) {
-    try {
-        Start-Process -Wait winget -ArgumentList "install --id $tool -e --silent --accept-package-agreements --accept-source-agreements"
-        Write-Host "$tool installed."
-    } catch {
-        Write-Host "$tool installation failed: $_"
-    }
-}
-
-# Terminal Emulator, Font
-$terminalPackages = @(
+    # Terminal Emulator & Fonts
     "DEVCOM.JetBrainsMonoNerdFont",
-    "Alacritty.Alacritty"
+    "Alacritty.Alacritty",
+
+    # Node.js
+    "OpenJS.NodeJS.LTS",
+
+    # Neovim
+    "Neovim.Neovim",
+
+    # Chocolatey
+    "Chocolatey.Chocolatey"
 )
 
-foreach ($pkg in $terminalPackages) {
+# ------------------------
+# Installation
+# ------------------------
+foreach ($pkg in $allPackages) {
     try {
-        Start-Process -Wait winget -ArgumentList "install --id $pkg -e --silent --accept-package-agreements --accept-source-agreements"
+        Start-Process -Wait winget -ArgumentList `
+          "install --id $pkg -e --silent --accept-package-agreements --accept-source-agreements"
         Write-Host "$pkg installed."
     } catch {
         Write-Host "$pkg installation failed: $_"
     }
 }
 
-# Clone Alacritty Settings
+# ------------------------
+# Neovim, Alacritty clone
+# ------------------------
 git clone https://github.com/Tomarun029831/AlacrittySettings "$env:APPDATA\alacritty"
+Remove-Item -Recurse -Force "$env:APPDATA\alacritty\.git"
 
-# -----------------------------
-# Chocolatey / LuaRocks / MinGW Installation
-# -----------------------------
+git clone https://github.com/Tomarun029831/NeovimSettings.git "$env:LOCALAPPDATA\nvim"
+Remove-Item -Recurse -Force "$env:LOCALAPPDATA\nvim\.git"
 
-# Chocolatey
-Start-Process -Wait winget -ArgumentList "install --id Chocolatey.Chocolatey -e --silent --accept-package-agreements --accept-source-agreements"
-
-# LuaRocks, MinGW on admin
+# ------------------------
+# LuaRocks / MinGW admin installation
+# ------------------------
 Start-Process -Wait powershell -Verb RunAs -ArgumentList '-Command', @'
 choco upgrade chocolatey;
 choco install LuaRocks -y;
 choco install mingw -y;
 '@
 
-# --------------
-# Node.js Installation
-# --------------
+Write-Host "CLI Fast Setup Finished"
 
-try {
-    Start-Process -Wait winget -ArgumentList "install --id OpenJS.NodeJS.LTS -e --silent --accept-package-agreements --accept-source-agreements"
-    Write-Host "Node.js installed."
-} catch {
-    Write-Host "Node.js installation failed: $_"
-}
-
-# ----------------------
-# Neovim Installation
-# ----------------------
-
-try {
-    Start-Process -Wait winget -ArgumentList "install --id Neovim.Neovim -e --silent --accept-package-agreements --accept-source-agreements"
-    git clone https://github.com/Tomarun029831/NeovimSettings.git "$env:LOCALAPPDATA\nvim"
-    Write-Host "Neovim and config installed."
-} catch {
-    Write-Host "Neovim installation failed: $_"
-}
-
-# ------------
-# Complete Message
-# ------------
-
-Write-Host "Neovim Fast Setup is finished."
 '@
 ```
