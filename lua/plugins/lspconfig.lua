@@ -1,11 +1,39 @@
 return {
     "neovim/nvim-lspconfig",
-    ---@class PluginLspOpts
-    opts = {
-        ---@type lspconfig.options
-        servers = {
-            -- pyright will be automatically installed with mason and loaded with lspconfig
-            pyright = {},
-        },
-    },
+    opts = function(_, opts)
+        opts.servers = opts.servers or {}
+        opts.servers.arduino_language_server = {
+            cmd = {
+                "arduino-language-server",
+                "-cli-config",
+                vim.fn.expand("$USERPROFILE") .. "\\AppData\\Local\\Arduino15\\arduino-cli.yaml",
+                "-fqbn",
+                "arduino:avr:uno",
+                "-cli",
+                "arduino-cli",
+                "-clangd",
+                "clangd",
+            },
+        }
+    end,
 }
+-- return {
+--     "neovim/nvim-lspconfig",
+--     opts = {
+--         servers = {
+--             arduino_language_server = {
+--                 cmd = {
+--                     "arduino-language-server",
+--                     "-cli-config",
+--                     vim.fn.expand("$USERPROFILE") .. "\\AppData\\Local\\Arduino15\\arduino-cli.yaml",
+--                     "-fqbn",
+--                     "arduino:avr:uno",
+--                     "-cli",
+--                     "arduino-cli",
+--                     "-clangd",
+--                     "clangd",
+--                 },
+--             },
+--         },
+--     },
+-- }
