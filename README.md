@@ -34,10 +34,8 @@ $allPackages = @(
     "Chocolatey.Chocolatey"
 )
 
-# ------------------------
-# Installation
-# ------------------------
-foreach ($pkg in $allPackages) {
+$scriptBlock = {
+    param($pkg)
     try {
         Start-Process -Wait winget -ArgumentList `
           "install --id $pkg -e --silent --accept-package-agreements --accept-source-agreements"
@@ -46,6 +44,8 @@ foreach ($pkg in $allPackages) {
         Write-Host "$pkg installation failed: $_"
     }
 }
+
+$allPackages | ForEach-Object -Parallel $scriptBlock -ThrottleLimit 4
 
 # ------------------------
 # Neovim, Alacritty clone
