@@ -70,6 +70,26 @@ choco install mingw -y;
 # ------------------------
 npm install -g cz-git
 
+$configPath = Join-Path $env:APPDATA "lazygit\config.yml"
+
+$configContent = @"
+os:
+  editPreset: 'nvim'
+
+customCommands:
+  - command: npx czg
+    context: files
+    subprocess: true
+    key: c
+  - command: npx czg ai
+    context: files
+    subprocess: true
+    key: C
+"@
+
+Set-Content -Path $configPath -Value $configContent -Encoding UTF8
+
+
 Write-Host "CLI Fast Setup Finished"
 
 '@
