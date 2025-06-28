@@ -65,6 +65,11 @@ choco install LuaRocks -y;
 choco install mingw -y;
 '@
 
+# ------------------------
+# npm global install cz-git
+# ------------------------
+npm install -g cz-git
+
 Write-Host "CLI Fast Setup Finished"
 
 '@
