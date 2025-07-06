@@ -3,7 +3,7 @@
 -- Add any additional options here
 
 local o = vim.o
-o.shell = "pwsh"
+o.shell = "nu"
 o.expandtab = true
 o.tabstop = 4
 o.shiftwidth = 4
