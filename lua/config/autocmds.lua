@@ -8,3 +8,5 @@
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
 
 -- vim.cmd("colorscheme tokyonight-night")
+
+-- vim.lsp.set_log_level("ERROR")
