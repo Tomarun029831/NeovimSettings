@@ -94,3 +94,11 @@ Write-Host "CLI Fast Setup Finished"
 
 '@
 ```
+
+# C# LSP Issues in Unity
+
+## Problem 0
+In a Unity project, the C# Language Server Protocol (LSP) does not activate automatically.
+
+## Solution 0
+Regenerate the `.sln` and `.csproj` files from Unity.  
