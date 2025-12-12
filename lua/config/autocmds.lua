@@ -9,4 +9,4 @@
 
 -- vim.cmd("colorscheme tokyonight-night")
 
--- vim.lsp.set_log_level("ERROR")
+vim.lsp.set_log_level("ERROR")
