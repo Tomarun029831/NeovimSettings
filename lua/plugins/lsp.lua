@@ -7,6 +7,32 @@ return {
     "neovim/nvim-lspconfig",
     opts = function(_, opts)
         opts.servers = opts.servers or {}
+
+        -- setting for venu of 'uv' project manager
+        local venv_python = vim.fn.getcwd() .. "/.venv/bin/python"
+        if vim.fn.has("win32") == 1 then
+            venv_python = vim.fn.getcwd() .. "/.venv/Scripts/python.exe"
+        end
+
+        -- lsp for python
+        opts.servers.pyright = {
+            settings = {
+                python = {
+                    pythonPath = venv_python,
+                },
+            },
+        }
+
+        -- linter, formatter for python
+        opts.servers.ruff = {
+            init_options = {
+                settings = {
+                    python = {
+                        pythonPath = venv_python,
+                    },
+                },
+            },
+        }
     end,
 }
 
