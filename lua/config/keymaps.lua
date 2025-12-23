@@ -2,19 +2,29 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
--- For Molten
-vim.keymap.set("n", "<localleader>mi", ":MoltenInit<CR>", { silent = true, desc = "Initialize Molten" })
+-- For quarto
+local runner = require("quarto.runner")
+vim.keymap.set("n", "<localleader>rc", runner.run_cell, { desc = "Run cell", silent = true })
+vim.keymap.set("n", "<localleader>ra", runner.run_above, { desc = "Run cell + above", silent = true })
+vim.keymap.set("n", "<localleader>rA", function()
+    runner.run_all(true)
+end, { desc = "Run all cells", silent = true })
+vim.keymap.set("n", "<localleader>rl", runner.run_line, { desc = "Run line", silent = true })
+vim.keymap.set("v", "<localleader>r", runner.run_range, { desc = "Run range", silent = true })
 
-vim.keymap.set("n", "<localleader>mo", ":MoltenEvaluateOperator<CR>", { silent = true, desc = "Evaluate operator" })
-vim.keymap.set("n", "<localleader>ml", ":MoltenEvaluateLine<CR>", { silent = true, desc = "Evaluate line" })
-vim.keymap.set("n", "<localleader>mc", ":MoltenReevaluateCell<CR>", { silent = true, desc = "Re-evaluate cell" })
+vim.keymap.set("n", "gj", "/^```{<CR>", { desc = "Next cell", silent = true })
+vim.keymap.set("n", "gk", "?^```{<CR>", { desc = "Previous cell", silent = true })
 
-vim.keymap.set("n", "<localleader>ms", ":MoltenSave<CR>", { silent = true, desc = "Save Molten state" })
-vim.keymap.set("n", "<localleader>mL", ":MoltenLoad<CR>", { silent = true, desc = "Load Molten state" })
-
-vim.keymap.set(
-    "v",
-    "<localleader>mv",
-    ":<C-u>MoltenEvaluateVisual<CR>gv",
-    { silent = true, desc = "Evaluate visual selection" }
-)
+local function export_ipynb(execute)
+    local cmd = "quarto convert % --to ipynb"
+    if execute then
+        cmd = cmd .. " --execute"
+    end
+    vim.cmd("!" .. cmd)
+end
+vim.keymap.set("n", "<localleader>qe", function()
+    export_ipynb(false)
+end, { desc = "Export to ipynb" })
+vim.keymap.set("n", "<localleader>qE", function()
+    export_ipynb(true)
+end, { desc = "Export & Execute ipynb" })

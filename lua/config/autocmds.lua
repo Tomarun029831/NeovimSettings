@@ -10,3 +10,10 @@
 -- vim.cmd("colorscheme tokyonight-night")
 
 vim.lsp.set_log_level("ERROR")
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "markdown", "quarto" },
+    callback = function()
+        vim.opt_local.conceallevel = 0
+    end,
+})
