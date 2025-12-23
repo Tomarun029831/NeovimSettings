@@ -102,3 +102,21 @@ In a Unity project, the C# Language Server Protocol (LSP) does not activate auto
 
 ## Solution 0
 Regenerate the `.sln` and `.csproj` files from Unity.  
+
+# cli setup for [Molten-nvim](https://github.com/benlubas/molten-nvim) by [uv](https://github.com/astral-sh/uv)(python project manager) in [nushell](https://github.com/nushell/nushell)
+```nushell
+# required modules
+uv add pynvim ipykernel
+overlay use .venv\Scripts\activate
+python -m ipykernel install --user --name=<project-name>
+deactivate
+
+# optional modules
+uv add cairosvg
+uv add pnglatex
+uv add plotly
+uv add kaleido
+uv add pyperclip
+uv add nbformat
+uv add pillow
+```
