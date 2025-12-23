@@ -95,15 +95,10 @@ Write-Host "CLI Fast Setup Finished"
 '@
 ```
 
-# C# LSP Issues in Unity
+# C# LSP Works In Unity
+Regenerate the `.sln` and `.csproj` files with vscode in a Unity project
 
-## Problem 0
-In a Unity project, the C# Language Server Protocol (LSP) does not activate automatically.
-
-## Solution 0
-Regenerate the `.sln` and `.csproj` files from Unity.  
-
-# cli setup for [Molten-nvim](https://github.com/benlubas/molten-nvim) by [uv](https://github.com/astral-sh/uv)(python project manager) in [nushell](https://github.com/nushell/nushell)
+# Cli Setup For [molten-nvim](https://github.com/benlubas/molten-nvim) By [uv](https://github.com/astral-sh/uv)(python project manager) In [nushell](https://github.com/nushell/nushell)
 ```nushell
 # required modules
 uv add pynvim ipykernel
