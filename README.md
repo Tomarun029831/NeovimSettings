@@ -102,6 +102,7 @@ Regenerate the `.sln` and `.csproj` files with vscode in a Unity project
 ```nushell
 # required modules
 winget install --id=Posit.Quarto
+winget install --id=astral-sh.uv 
 
 uv add pynvim ipykernel
 overlay use .venv\Scripts\activate
