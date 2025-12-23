@@ -98,14 +98,15 @@ Write-Host "CLI Fast Setup Finished"
 # C# LSP Works In Unity
 Regenerate the `.sln` and `.csproj` files with vscode in a Unity project
 
-# Cli Setup For [molten-nvim](https://github.com/benlubas/molten-nvim) By [uv](https://github.com/astral-sh/uv)(python project manager) In [nushell](https://github.com/nushell/nushell)
+# CLI Setup for [quarto-nvim](https://github.com/quarto-dev/quarto-nvim) Working with [molten-nvim](https://github.com/benlubas/molten-nvim) Using [uv](https://github.com/astral-sh/uv) (Python project manager) in [Nushell](https://github.com/nushell/nushell)
 ```nushell
 # required modules
+winget install --id=Posit.Quarto
+
 uv add pynvim ipykernel
 overlay use .venv\Scripts\activate
 python -m ipykernel install --user --name=<project-name>
 deactivate
-
 # optional modules
 uv add cairosvg
 uv add pnglatex
