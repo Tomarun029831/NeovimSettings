@@ -8,28 +8,43 @@ return {
     opts = function(_, opts)
         opts.servers = opts.servers or {}
 
-        -- setting for venu of 'uv' project manager
-        local venv_python = vim.fn.getcwd() .. "/.venv/bin/python"
-        if vim.fn.has("win32") == 1 then
-            venv_python = vim.fn.getcwd() .. "/.venv/Scripts/python.exe"
-        end
-
-        -- lsp for python
+        -- INFO: For python
         opts.servers.pyright = {
             settings = {
                 python = {
-                    pythonPath = venv_python,
+                    pythonPath = (function()
+                        local config_path = vim.fn.getcwd() .. "/pyrightconfig.json"
+                        if vim.fn.filereadable(config_path) == 1 then
+                            local f = io.open(config_path, "r")
+                            if f then
+                                local content = f:read("*a")
+                                f:close()
+                                local ok, decoded = pcall(vim.fn.json_decode, content)
+                                if ok and decoded.pythonPath then
+                                    return decoded.pythonPath
+                                end
+                            end
+                        end
+
+                        local venv_exe = vim.fn.getcwd() .. "/.venv/Scripts/python.exe"
+                        if vim.fn.executable(venv_exe) == 1 then
+                            return venv_exe
+                        end
+
+                        return "python"
+                    end)(),
+                    analysis = {
+                        autoSearchPaths = true,
+                        useLibraryCodeForTypes = true,
+                        diagnosticMode = "workspace",
+                    },
                 },
             },
         }
-
-        -- linter, formatter for python
         opts.servers.ruff = {
             init_options = {
                 settings = {
-                    python = {
-                        pythonPath = venv_python,
-                    },
+                    interpreter = { python_exe },
                 },
             },
         }
